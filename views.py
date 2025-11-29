@@ -20,3 +20,24 @@ def deletar_bairro(i):
         cur = con.cursor()
         query = "DELETE FROM bairro WHERE id=? "
         cur.execute(query, i)
+#Ver Bairros
+def ver_bairro():
+    lista = []
+    with con:
+        cur = con.cursor()
+        cur.execute('SELECT * FROM bairro')
+        linha = cur.fetchall()
+        
+        for i in linha:
+            lista.append(i)
+    return lista
+#Atualizar Bairro
+def atualizar_bairro(i):
+    with con:
+        cur = con.cursor()
+        query = "UPDATE bairro SET BAIRRO=? WHERE id=?"
+        cur.execute(query, i)  # A variável 'dados' já é uma tupla
+        con.commit()
+
+        # Retorna True se a atualização for bem-sucedida
+        return cur.rowcount > 0
