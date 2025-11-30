@@ -56,6 +56,9 @@ btn_deletar.grid(row=0, column=2)
 btn_cad_bairros =Button(frame_btn, text="Cadastrar Bairros", width=15, height=2, bg=co11, fg=co5, font=("Ivy 10 bold"), relief=RAISED, overrelief=RIDGE, command=lambda:bairros())
 btn_cad_bairros.grid(row=0, column=3)
 
+btn_closed =Button(frame_btn, command=janela.destroy, text="Fechar", width=10, height=2, bg=co11, fg=co5, font=("Ivy 10 bold"), relief=RAISED, overrelief=RIDGE, )
+btn_closed.grid(row=0, column=4)
+
 ###########################################################################################################
 # Cadastrar Bairros
 def bairros():
@@ -179,6 +182,15 @@ def bairros():
         for item in df_list:
             tree_bairros.insert("", "end", values=item)
     mostrar_bairros()
+
+###############################################################################################################
+# Cadastro de clientes
+def cad_clientes():
+    pass
+
+
+
+
 
 
 
