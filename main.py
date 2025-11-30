@@ -22,20 +22,17 @@ style = ttk.Style(janela)
 style.theme_use("clam")
 ############################################################################    
 
-frame_cima= Frame(janela, width=800, height=50, bg=co4, relief="flat")
+frame_cima= Frame(janela, width=800, height=50, bg=co4,pady=0, padx=0, relief="flat")
 frame_cima.grid(row=0, column=0, sticky=NSEW)
 
-frame_btn= Frame(janela, width=800, height=50, bg=co4, relief="flat")
+frame_btn= Frame(janela, width=800, height=50, bg=co4, pady=0, padx=0, relief="flat")
 frame_btn.grid(row=1, column=0, sticky=NSEW)
 
-frame_Baixo= Frame(janela, width=800, height=750, bg=co4, relief="flat")
+frame_Baixo= Frame(janela, width=800, height=350, bg=co4, pady=0, padx=0, relief="flat")
 frame_Baixo.grid(row=2, column=0, sticky=NSEW)
 
-frame_tabela= Frame(janela, width=800, height=750, bg=co4, relief="flat")
+frame_tabela= Frame(janela, width=800, height=350, bg=co4, pady=0, padx=0, relief="flat")
 frame_tabela.grid(row=2, column=0, sticky=NSEW)
-#################################################################################################
-
-
 #####################################################################################
 #Titulo
 t_titulo= Label(frame_cima, text="Sistema de Cadastro de Clientes", bg=co4, fg=co6, font=("Ivy 16 bold"), anchor= CENTER)
@@ -58,6 +55,47 @@ btn_cad_bairros.grid(row=0, column=3)
 
 btn_closed =Button(frame_btn, command=janela.destroy, text="Fechar", width=10, height=2, bg=co11, fg=co5, font=("Ivy 10 bold"), relief=RAISED, overrelief=RIDGE, )
 btn_closed.grid(row=0, column=4)
+####################################################################################
+# Campos de entrada de dados
+
+l_matricula = Label(frame_Baixo, text="Matricula:", font=('Ivy 10 bold'), bg=co9, fg=co11)
+l_matricula.grid(row=0, column=0)
+e_matricula= Entry(frame_Baixo, width=15, justify=LEFT, font=('Ivy 10 bold'),  relief='solid')
+e_matricula.grid(row=0, column=1)
+
+l_cnpj = Label(frame_Baixo, text="CNPJ:", font=('Ivy 10 bold'), bg=co9, fg=co11)
+l_cnpj.grid(row=0, column=2)
+e_cnpj= Entry(frame_Baixo, width=15, justify=LEFT, font=('Ivy 10 bold'),  relief='solid')
+e_cnpj.grid(row=0, column=3)
+
+l_raz_social = Label(frame_Baixo, text="Razão Social:", font=('Ivy 10 bold'), bg=co9, fg=co11)
+l_raz_social.grid(row=1, column=0)
+e_raz_social= Entry(frame_Baixo, width=35, justify=LEFT, font=('Ivy 10 bold'),  relief='solid')
+e_raz_social.grid(row=1, column=1)
+
+l_fantasia = Label(frame_Baixo, text="Nome Fantasia:", font=('Ivy 10 bold'), bg=co9, fg=co11)
+l_fantasia.grid(row=2, column=0)
+e_fantasia= Entry(frame_Baixo, width=35, justify=LEFT, font=('Ivy 10 bold'),  relief='solid')
+e_fantasia.grid(row=2, column=1)
+
+l_endereco = Label(frame_Baixo, text="Endereço:", font=('Ivy 10 bold'), bg=co9, fg=co11)
+l_endereco.grid(row=3, column=0)
+e_endereco= Entry(frame_Baixo, width=35, justify=LEFT, font=('Ivy 10 bold'),  relief='solid')
+e_endereco.grid(row=3, column=1)
+
+l_bairro = Label(frame_Baixo, text="Bairro:", font=('Ivy 10 bold'), bg=co9, fg=co11)
+l_bairro.grid(row=4, column=0)
+cb_bairro = ttk.Combobox(frame_Baixo, width=33, font=('Ivy 10 bold'))
+cb_bairro.grid(row=4, column=1)
+ver_bairro()
+
+l_atendente= Label(frame_Baixo, text="Atendente:", font=('Ivy 10 bold'), bg=co9, fg=co11)
+l_atendente.grid(row=5, column=0)
+e_atendente= Entry(frame_Baixo, width=35, justify=LEFT, font=('Ivy 10 bold'),  relief='solid')
+e_atendente.grid(row=5, column=1)
+
+
+
 
 ###########################################################################################################
 # Cadastrar Bairros
@@ -184,10 +222,10 @@ def bairros():
     mostrar_bairros()
 
 ###############################################################################################################
-# Cadastro de clientes
-def cad_clientes():
-    pass
 
+    
+
+    
 
 
 
