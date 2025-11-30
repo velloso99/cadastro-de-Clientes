@@ -28,21 +28,60 @@ frame_cima.grid(row=0, column=0, sticky=NSEW)
 frame_btn= Frame(janela, width=800, height=50, bg=co4, pady=0, padx=0, relief="flat")
 frame_btn.grid(row=1, column=0, sticky=NSEW)
 
-frame_Baixo= Frame(janela, width=800, height=350, bg=co4, pady=0, padx=0, relief="flat")
-frame_Baixo.grid(row=2, column=0, sticky=NSEW)
-
-frame_tabela= Frame(janela, width=800, height=400, bg=co4, pady=0, padx=0, relief="flat")
-frame_tabela.grid(row=2, column=0, sticky=NSEW)
+frame_tabela= Frame(janela, width=800, height=700, bg=co4, pady=0, padx=0, relief="flat")
+frame_tabela.grid(row=3, column=0, sticky=NSEW)
 #####################################################################################
 #Titulo
 t_titulo= Label(frame_cima, text="Sistema de Cadastro de Clientes", bg=co4, fg=co6, font=("Ivy 16 bold"), anchor= CENTER)
 t_titulo.place(x=250, y=10)
 
-btn_cadastrar =Button(frame_btn,  text="Cadastrar clientes", width=20, height=2, bg=co11, fg=co5, font=("Ivy 10 bold"), relief=RAISED, overrelief=RIDGE , command=lambda:clientes())
+btn_cadastrar =Button(frame_btn,  text="Cadastrar clientes", width=20, height=2, bg=co11, fg=co5, font=("Ivy 10 bold"), relief=RAISED, overrelief=RIDGE )
 btn_cadastrar.grid(row=0, column=0)
 
 btn_closed =Button(frame_btn, command=janela.destroy, text="Fechar", width=10, height=2, bg=co11, fg=co5, font=("Ivy 10 bold"), relief=RAISED, overrelief=RIDGE, )
 btn_closed.grid(row=0, column=1)
+
+#Tabela Alunos
+def ver_clientes():
+
+        # Título
+        app_nome = Label(frame_tabela, text="Registros de Bairros", height=1, pady=0, padx=0, relief="flat", anchor="center", font=('Ivy 10 bold'), bg=co4, fg=co6)
+        app_nome.grid(row=0, column=0, padx=0, pady=0, sticky="nsew")
+
+        # Cabeçalhos da tabela
+        list_header = ['id', 'Razão Social', 'Nome Fantasia','CNPJ', 'Endereço', 'Bairro', 'Cidade', 'Estado', 'Atendente', 'Telefone']
+
+        df_list = ver_cliente()
+
+        global tree_clientes
+        # Criando Treeview
+        tree_clientes = ttk.Treeview(frame_tabela, selectmode="extended",columns=list_header,show="headings"
+        )
+
+        # Scrollbars
+        vsb = ttk.Scrollbar(frame_tabela, orient="vertical", command=tree_clientes.yview)
+        hsb = ttk.Scrollbar(frame_tabela, orient="horizontal", command=tree_clientes.xview)
+
+        tree_clientes.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+
+        tree_clientes.grid(column=0, row=1, sticky='nsew')
+        vsb.grid(column=1, row=1, sticky='ns')
+        hsb.grid(column=0, row=2, sticky='ew')
+
+        frame_tabela.grid_rowconfigure(0, weight=20)
+
+        # Ajuste das colunas
+        hd = [ "center", "nw", "center", "nw", "nw", "nw", "nw", "nw", "nw", "nw"]
+        h =  [40, 100, 100, 90, 100, 100, 100, 30, 100, 80]
+
+        for i, col in enumerate(list_header):
+            tree_clientes.heading(col, text=col, anchor=NW)
+            tree_clientes.column(col, width=h[i], anchor=hd[i])
+
+        # Inserção dos registros — CORRETO
+        for item in df_list:
+            tree_clientes.insert("", "end", values=item)
+ver_clientes()
 
 
 # Campos de entrada de dados
@@ -50,11 +89,11 @@ def clientes():
 
 
     janela_cad_clientes = Toplevel()
-    janela_cad_clientes.title("Cadastro de Bairros")
+    janela_cad_clientes.title("Cadstrar Clientes")
     janela_cad_clientes.geometry("400x400")
     janela_cad_clientes.configure(background= co5)
     janela_cad_clientes.resizable(FALSE,FALSE)
-    largura_root = 500
+    largura_root = 400
     altura_root = 400
     #obter tamanho da tela
     largura_tela = janela_cad_clientes.winfo_screenwidth()
@@ -65,47 +104,47 @@ def clientes():
     # Definir geometria da janela (LxA+X+Y)
     janela_cad_clientes.geometry(f"{largura_root}x{altura_root}+{pos_x}+{pos_y}")
 
-    frame_cima= Frame(janela, width=800, height=50, bg=co4,pady=0, padx=0, relief="flat")
-    frame_cima.grid(row=0, column=0, sticky=NSEW)
+    frame_cima_cli= Frame(janela, width=800, height=50, bg=co4,pady=0, padx=0, relief="flat")
+    frame_cima_cli.grid(row=0, column=0, sticky=NSEW)
 
-    frame_btn= Frame(janela, width=800, height=50, bg=co4, pady=0, padx=0, relief="flat")
-    frame_btn.grid(row=1, column=0, sticky=NSEW)
+    frame_btn_cli= Frame(janela, width=800, height=50, bg=co4, pady=0, padx=0, relief="flat")
+    frame_btn_cli.grid(row=1, column=0, sticky=NSEW)
 
     separator1 = Separator(janela, orient='horizontal')
     separator1.grid(row=2, column=0, sticky="nsew", padx=0, pady=0)
 
-    frame_Baixo= Frame(janela, width=800, height=350, bg=co4, pady=0, padx=0, relief="flat")
-    frame_Baixo.grid(row=3, column=0, sticky=NSEW)
+    frame_Baixo_cli= Frame(janela, width=800, height=350, bg=co4, pady=0, padx=0, relief="flat")
+    frame_Baixo_cli.grid(row=3, column=0, sticky=NSEW)
 
     ####################################################################################
     # Botões de navegação
 
-    btn_cadastrar =Button(frame_btn, text="Cadastrar", width=10, height=2, bg=co11, fg=co5, font=("Ivy 10 bold"), relief=RAISED, overrelief=RIDGE )
+    btn_cadastrar =Button(frame_btn_cli, text="Cadastrar", width=10, height=2, bg=co11, fg=co5, font=("Ivy 10 bold"), relief=RAISED, overrelief=RIDGE )
     btn_cadastrar.grid(row=0, column=0)
 
-    btn_atualiza =Button(frame_btn, text="Atualizar", width=10, height=2, bg=co11, fg=co5, font=("Ivy 10 bold"), relief=RAISED, overrelief=RIDGE, )
+    btn_atualiza =Button(frame_btn_cli, text="Atualizar", width=10, height=2, bg=co11, fg=co5, font=("Ivy 10 bold"), relief=RAISED, overrelief=RIDGE, )
     btn_atualiza.grid(row=0, column=1)
 
-    btn_deletar =Button(frame_btn, text="Deletar", width=10, height=2, bg=co11, fg=co5, font=("Ivy 10 bold"), relief=RAISED, overrelief=RIDGE, )
+    btn_deletar =Button(frame_btn_cli, text="Deletar", width=10, height=2, bg=co11, fg=co5, font=("Ivy 10 bold"), relief=RAISED, overrelief=RIDGE, )
     btn_deletar.grid(row=0, column=2)
 
-    btn_cad_bairros =Button(frame_btn, text="Cadastrar Bairros", width=15, height=2, bg=co11, fg=co5, font=("Ivy 10 bold"), relief=RAISED, overrelief=RIDGE, command=lambda:bairros())
+    btn_cad_bairros =Button(frame_btn_cli, text="Cadastrar Bairros", width=15, height=2, bg=co11, fg=co5, font=("Ivy 10 bold"), relief=RAISED, overrelief=RIDGE, command=lambda:bairros())
     btn_cad_bairros.grid(row=0, column=3)
 
     
-    btn_closed =Button(frame_btn, command=janela.destroy, text="Fechar", width=10, height=2, bg=co11, fg=co5, font=("Ivy 10 bold"), relief=RAISED, overrelief=RIDGE, )
+    btn_closed =Button(frame_btn_cli, command=janela.destroy, text="Fechar", width=10, height=2, bg=co11, fg=co5, font=("Ivy 10 bold"), relief=RAISED, overrelief=RIDGE, )
     btn_closed.grid(row=0, column=4)
 ####################################################################################
 
     # Campos de entrada de dados
-    l_matricula = Label(frame_Baixo, text="Matricula:", font=('Ivy 10 bold'), bg=co4, fg=co6)
+    l_matricula = Label(frame_Baixo_cli, text="Matricula:", font=('Ivy 10 bold'), bg=co4, fg=co6)
     l_matricula.grid(row=0, column=0)
-    e_matricula= Entry(frame_Baixo, width=15, justify=LEFT, font=('Ivy 10 bold'),  relief='solid')
+    e_matricula= Entry(frame_Baixo_cli, width=15, justify=LEFT, font=('Ivy 10 bold'),  relief='solid')
     e_matricula.grid(row=0, column=1)
 
-    l_cnpj = Label(frame_Baixo, text="CNPJ:", font=('Ivy 10 bold'), bg=co4, fg=co6)
+    l_cnpj = Label(frame_Baixo_cli, text="CNPJ:", font=('Ivy 10 bold'), bg=co4, fg=co6)
     l_cnpj.grid(row=0, column=2)
-    e_cnpj= Entry(frame_Baixo, width=15, justify=LEFT, font=('Ivy 10 bold'),  relief='solid')
+    e_cnpj= Entry(frame_Baixo_cli, width=15, justify=LEFT, font=('Ivy 10 bold'),  relief='solid')
     e_cnpj.grid(row=0, column=3)
 
 #l_raz_social = Label(frame_Baixo, text="Razão Social:", font=('Ivy 10 bold'), bg=co9, fg=co11)
