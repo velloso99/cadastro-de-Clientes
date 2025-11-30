@@ -41,8 +41,7 @@ def atualizar_bairro(i):
         con.commit()
 
         # Retorna True se a atualização for bem-sucedida
-        return cur.rowcount > 0
-    
+        return cur.rowcount > 1
 #######################################################################################################
 #Tabela Carteira de Clientes__________________________
 def criar_cliente(i):   
